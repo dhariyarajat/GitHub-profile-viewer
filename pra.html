@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <script>
+      const repos = [
+        { name: "portfolio", stars: 5 },
+        { name: "weather-app", stars: 20 },
+        { name: "github-dashboard", stars: 15 },
+      ];
+      const farr = repos.filter((repos) => repos.stars > 10);
+      console.log(farr);
+      const marr=repos.map((repos) => repos.name)
+    </script> -->
+    <!-- <script>
+      const tech = ["HTML", "CSS", "JavaScript"];
+      const [html,css,js]=tech
+      console.log(html)
+      console.log(js)
+    </script> -->
+
+    <!-- <h1 id="name"></h1>
+    <h3 id="username"></h3> -->
+
+    <!-- <script>
+      const user = "dhariyarajat";
+      let userdata;
+    
+      const name1 = document.getElementById("name");
+      const username = document.getElementById("username");
+      async function fetchUser(user) {
+        const userUrl = `https://api.github.com/users/${user}`;
+        const userResponse = await fetch(userUrl);
+        userdata = await userResponse.json();
+        name1.textContent = userdata.name || "Not found...!";
+        username.textContent=`@${userdata.login}` || "Not found...!"
+      }
+      fetchUser(user)
+    </script> -->
+    <input type="text" id="inp" />
+    <button id="btn">Load User</button>
+    <p id="validationError"></p>
+    <div id="dash" class="dash">
+      <h2 id="name"></h2>
+      <h1 id="followers"></h1>
+      <p id="repos"></p>
+    </div>
+    <h1 id="error" class="hidden">User Not found..!</h1>
+    <script>
+      const name = document.getElementById("name");
+      const dash = document.getElementById("dash");
+      const error = document.getElementById("error");
+      const validationerror = document.getElementById("validationerror");
+      const followers = document.getElementById("followers");
+      const repos = document.getElementById("repos");
+      async function fetchName(username) {
+        try {
+          const userUrl = `https://api.github.com/users/${username}`;
+          const userResponse = await fetch(userUrl);
+          if (!userResponse.ok) {
+            throw new Error("User not found");
+          }
+          const userData = await userResponse.json();
+          name.textContent = userData.name || userData.login;
+
+          const follower =
+            userData.followers > 1000
+              ? (userData.followers / 1000).toFixed(1) + "K"
+              : userData.followers;
+          followers.textContent = follower || "0";
+          repos.textContent = userData.public_repos;
+        } catch {
+          dash.classList.add("hidden");
+          error.classList.remove("hidden");
+        }
+      }
+
+      const btn = document.getElementById("btn");
+      btn.addEventListener("click", () => {
+        dash.classList.remove("hidden");
+        error.classList.add("hidden");
+        name.textContent = "Loading...";
+
+        const inp = document.getElementById("inp");
+        const user = inp.value.trim().toLowerCase();
+        if(user===""){
+          validationerror.textContent="pls Enter username "
+          inp.focus()
+          return
+        }
+
+        fetchName(user);
+      });
+    </script>
+  </body>
+</html>

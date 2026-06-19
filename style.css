@@ -1,0 +1,521 @@
+/* ==========================================================================
+   1. VARIABLES & RESET
+   ========================================================================== */
+/* ==========================================================================
+   THEME VARIABLE CONFIGURATIONS (CSS CUSTOM PROPERTIES)
+   ========================================================================== */
+
+/* डिफ़ॉल्ट थीम: Dark Mode (यह पहले से सेट रहेगा) */
+:root {
+  --bg-main: #0d1117;
+  --bg-card: #161b22;
+  --bg-header: #161b22;
+  --border-color: #30363d;
+  --text-main: #c9d1d9;
+  --text-muted: #8b949e;
+  --accent-blue: #238636;
+  --accent-hover: #2ea043;
+  --error-red: #f85149;
+  --font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --repo-name-color: #58a6ff;
+}
+
+/* लाइट मोड एक्टिव होने पर ये कलर्स अपने आप लागू हो जाएँगे */
+/* लाइट मोड एक्टिव होने पर ये कलर्स अपने आप लागू हो जाएँगे */
+[data-theme="light"] {
+  --bg-main: #f6f8fa;
+  --bg-card: #ffffff;
+  --bg-header: #ffffff; /* FIX: लाइट मोड में हेडर का बैकग्राउंड सफेद रहेगा */
+  --border-color: #d0d7de;
+  --text-main: #24292f; /* FIX: मुख्य टेक्स्ट का रंग डार्क ग्रे/ब्लैक रहेगा */
+  --text-muted: #57606a;
+  --accent-blue: #2ea44f;
+  --accent-hover: #2c974b;
+  --repo-name-color: #0969da;
+}
+
+/* ==========================================================================
+   HEADER STYLE FIX FOR LIGHT MODE
+   ========================================================================== */
+.app-header {
+  background-color: var(--bg-header);
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 0;
+}
+
+.app-title {
+  color: var(
+    --text-main
+  ); /* FIX: हेडिंग का रंग हमेशा थीम के टेक्स्ट कलर से मैच करेगा */
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+/* ==========================================================================
+   THEME TOGGLE BUTTON VISIBILITY FIX
+   ========================================================================== */
+#theme-toggle-btn {
+    background-color: var(--bg-card); /* कार्ड के बैकग्राउंड जैसा कलर */
+    color: var(--text-main);          /* डार्क में सफ़ेद टेक्स्ट, लाइट में ब्लैक टेक्स्ट */
+    border: 1px solid var(--border-color); /* थीम के हिसाब से बॉर्डर का कलर */
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+#theme-toggle-btn:hover {
+    background-color: var(--border-color); /* माउस ले जाने पर थोड़ा सा लाइट इफ़ेक्ट */
+    color: #ffffff; /* होवर करने पर पूरी तरह सफ़ेद टेक्स्ट */
+}
+
+/* लाइट मोड में होवर करने पर टेक्स्ट को डार्क रखने के लिए */
+[data-theme="light"] #theme-toggle-btn:hover {
+    color: #000000;
+}
+
+
+/* ==========================================================================
+   GLOBAL TRANSITIONS FOR SMOOTH THEME SHIFTS
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* जब थीम बदलेगी, तो कलर्स झटके से बदलने के बजाय धीरे से स्मूथली (0.3 सेकंड में) बदलेंगे */
+body,
+.card,
+#username-input,
+#repo-filter-input,
+.tag,
+h2,
+h3,
+h4,
+p,
+span {
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-family);
+  line-height: 1.5;
+}
+
+/* इनपुट बॉक्सेज़ को थीम के कलर्स से कनेक्ट करना */
+#username-input,
+#repo-filter-input {
+  background-color: var(--bg-card) !important;
+  color: var(--text-main) !important;
+}
+
+.repo-name {
+  color: var(--repo-name-color) !important;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-family);
+  line-height: 1.5;
+}
+
+/* Helper Class to hide elements */
+.hidden {
+  display: none !important;
+}
+
+/* Generic Card Styling */
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 20px;
+}
+
+/* ==========================================================================
+   2. HEADER
+   ========================================================================== */
+.app-header {
+  background-color: var(--bg-header);
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 0;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.app-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   3. MAIN LAYOUT CONTAINER & SEARCH
+   ========================================================================== */
+.main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+.search-section {
+  margin-bottom: 30px;
+}
+
+.search-form {
+  max-width: 500px;
+  margin-bottom: 15px;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+}
+
+#username-input {
+  flex: 1;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: var(--text-main);
+  font-size: 0.95rem;
+  outline: none;
+}
+
+#username-input:focus {
+  border-color: #58a6ff;
+}
+
+.btn-search {
+  background-color: var(--accent-blue);
+  color: #ffffff;
+  border: 1px solid rgba(240, 246, 252, 0.1);
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-search:hover {
+  background-color: var(--accent-hover);
+}
+
+.error-text {
+  color: var(--error-red);
+  font-size: 0.85rem;
+  margin-top: 5px;
+}
+
+/* Recent Searches Chips */
+.recent-searches {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+}
+
+.recent-title {
+  color: var(--text-muted);
+}
+
+.tag {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2px 10px;
+  cursor: pointer;
+}
+
+.tag:hover {
+  border-color: #58a6ff;
+}
+
+/* ==========================================================================
+   4. LOADING & ERROR UIs
+   ========================================================================== */
+.status-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--border-color);
+  border-top: 4px solid #58a6ff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.error-box {
+  border: 1px dashed var(--error-red);
+  background-color: rgba(248, 81, 73, 0.1);
+  color: var(--error-red);
+  border-radius: 6px;
+}
+
+/* ==========================================================================
+   5. DASHBOARD MAIN COMPONENT GRID
+   ========================================================================== */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+/* Profile Sidebar */
+.profile-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.avatar-placeholder {
+  width: 150px;
+  height: 150px;
+  background-color: var(--border-color);
+  border-radius: 50%;
+  margin-bottom: 15px;
+}
+
+.profile-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.profile-username {
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+.profile-bio {
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.profile-meta {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-color);
+  padding-top: 15px;
+}
+
+/* Stats Area */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Repositories Area */
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.repos-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.repo-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.repo-name {
+  color: #58a6ff;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.repo-name:hover {
+  text-decoration: underline;
+}
+
+.repo-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 15px;
+}
+
+.repo-tags {
+  display: flex;
+  gap: 15px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.repo-lang {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.lang-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.lang-color.js {
+  background-color: #f1e05a;
+}
+.lang-color.css {
+  background-color: #563d7c;
+}
+.lang-color.html {
+  background-color: #e34c26;
+}
+
+/* ==========================================================================
+   6. RESPONSIVE DESIGN (MEDIA QUERIES)
+   ========================================================================== */
+
+/* Tablets and Small Desktops */
+@media (min-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 280px 1fr;
+  }
+
+  .repos-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Large Desktops */
+@media (min-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 320px 1fr;
+  }
+}
+/* ==========================================================================
+   ADDED: YOUTUBE-STYLE INLINE CLEAR BUTTON
+   ========================================================================== */
+.input-wrapper {
+  width: 100%;
+}
+
+#inline-clear-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.4rem;
+  font-weight: 300;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 4px;
+  outline: none;
+  transition:
+    color 0.2s ease,
+    transform 0.1s ease;
+  user-select: none;
+}
+
+#inline-clear-btn:hover {
+  color: #ffffff; /* Smooth illumination state update matching GitHub dark layout colors */
+}
+
+#inline-clear-btn:active {
+  transform: translateY(-50%) scale(0.9); /* Click tap feedback compression effect */
+}
+
+/* Maintain clean desktop row stacking behavior */
+.input-group {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+/* ==========================================================================
+   ADDED: REPOSITORY COUNT COUNTER BADGES
+   ========================================================================== */
+.repo-badge {
+  display: inline-block;
+  background-color: #30363d;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 20px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.header-container{
+    display: flex;
+    justify-content: space-between;
+}
+/* ==========================================================================
+   ADDED: ENHANCED PROFILE METADATA INTERACTION STYLES
+   ========================================================================== */
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.meta-item span:first-child {
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+}
+
+#profile-blog:hover {
+    text-decoration: underline !important;
+}

@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub Profile Dashboard</title>
+    <!-- Link to external stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Header Section -->
+    <header class="app-header">
+      <div class="header-container">
+        <h1 class="app-title">GitHub Profile Dashboard</h1>
+        <!-- यहाँ हमने थीम बदलने के लिए एक सुंदर बटन जोड़ा है -->
+        <button
+          type="button"
+          id="theme-toggle-btn"
+          class="tag"
+          style="
+            cursor: pointer;
+            font-size: 0.85rem;
+            padding: 6px 12px;
+            font-weight: 500;
+          "
+          aria-label="Toggle Theme UI Visual Modes"
+        >
+          ☀️ Light Mode
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="main-container">
+      <!-- Search and History Section -->
+      <section class="search-section">
+        <form id="search-form" class="search-form" novalidate>
+          <div class="input-group">
+            <!-- Added relative container wrapper to position the close icon inside the field -->
+            <div
+              class="input-wrapper"
+              style="
+                position: relative;
+                flex: 1;
+                display: flex;
+                align-items: center;
+              "
+            >
+              <input
+                type="text"
+                id="username-input"
+                placeholder="Enter GitHub username..."
+                aria-label="GitHub username"
+                style="width: 100%; padding-right: 35px"
+              />
+              <!-- ADDED: YouTube-Style Clear Inline Icon Trigger -->
+              <button
+                type="button"
+                id="inline-clear-btn"
+                class="hidden"
+                aria-label="Clear input search field"
+              >
+                &times;
+              </button>
+            </div>
+            <button type="submit" class="btn-search">Search</button>
+          </div>
+          <!-- Validation Error Message -->
+          <p id="error-message" class="error-text hidden" role="alert"></p>
+        </form>
+
+        <!-- Recent Searches (Now fully dynamic) -->
+        <div class="recent-searches">
+          <span class="recent-title">Recent searches:</span>
+          <!-- Added id="recent-tags-container" so JavaScript can inject buttons dynamically -->
+          <div id="recent-tags-container" class="recent-tags">
+            <!-- Dynamic chips will be generated here by script.js -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Global Status Messages -->
+      <div id="loading-state" class="status-container hidden">
+        <div class="spinner"></div>
+        <p>Fetching user data...</p>
+      </div>
+
+      <div
+        id="api-error-state"
+        class="status-container error-box hidden"
+        role="alert"
+      >
+        <p>User not found. Please try another username.</p>
+      </div>
+
+      <!-- Dashboard Content Grid (Visible after successful search) -->
+      <div id="dashboard-content" class="dashboard-grid hidden">
+        <!-- Sidebar: Enhanced Profile Info Card -->
+        <aside class="profile-sidebar">
+          <div
+            class="card profile-card"
+            style="display: flex; flex-direction: column; gap: 15px"
+          >
+            <img
+              id="profile-avatar"
+              class="avatar-placeholder"
+              src=""
+              alt="Profile Avatar"
+            />
+            <h2 class="profile-name">John Doe</h2>
+            <p class="profile-username">@username</p>
+            <p class="profile-bio">This is a placeholder bio.</p>
+
+            <!-- NEW: View Profile Action Button -->
+            <button
+              type="button"
+              id="btn-view-github"
+              class="btn-search"
+              style="
+                width: 100%;
+                text-align: center;
+                font-size: 0.9rem;
+                padding: 10px;
+                margin-bottom: 5px;
+              "
+            >
+              View GitHub Profile
+            </button>
+
+            <!-- ENHANCED: Meta Data Container Grid List -->
+            <div
+              class="profile-meta"
+              style="
+                font-size: 0.85rem;
+                color: var(--text-muted);
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                border-top: 1px solid var(--border-color);
+                padding-top: 15px;
+              "
+            >
+              <div id="meta-location" class="meta-item">
+                <span>📍</span>
+                <span id="profile-location" class="meta-text"
+                  >Not Specified</span
+                >
+              </div>
+              <div id="meta-company" class="meta-item hidden">
+                <span>🏢</span>
+                <span id="profile-company" class="meta-text"></span>
+              </div>
+              <div id="meta-blog" class="meta-item hidden">
+                <span>🔗</span>
+                <a
+                  id="profile-blog"
+                  class="meta-text"
+                  href="#"
+                  target="_blank"
+                  style="color: var(--repo-name-color); text-decoration: none"
+                ></a>
+              </div>
+              <div id="meta-email" class="meta-item hidden">
+                <span>✉️</span>
+                <span id="profile-email" class="meta-text"></span>
+              </div>
+              <div id="meta-twitter" class="meta-item hidden">
+                <span>🐦</span>
+                <span id="profile-twitter" class="meta-text"></span>
+              </div>
+              <div id="meta-created" class="meta-item">
+                <span>📅</span>
+                <span id="profile-created" class="meta-text">Joined...</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main Dashboard Area -->
+        <section class="dashboard-main">
+          <!-- Quick Stats Row -->
+          <div class="stats-grid">
+            <div class="card stat-card">
+              <span class="stat-label">Repositories</span>
+              <span id="stat-repos" class="stat-value">0</span>
+            </div>
+            <div class="card stat-card">
+              <span class="stat-label">Followers</span>
+              <span id="stat-followers" class="stat-value">0</span>
+            </div>
+            <div class="card stat-card">
+              <span class="stat-label">Following</span>
+              <span id="stat-following" class="stat-value">0</span>
+            </div>
+          </div>
+
+          <!-- ==========================================================================
+                     UPDATED REPOSITORIES SECTIONS (Popular & All Repositories)
+                     ========================================================================== -->
+
+          <!-- Section A: Top Star Popular Repositories -->
+          <div
+            class="repos-section popular-section"
+            style="margin-bottom: 35px"
+          >
+            <h3 class="section-title">
+              Popular Repositories
+              <span id="popular-count-badge" class="repo-badge">Top 6</span>
+            </h3>
+            <div id="popular-repos-container" class="repos-grid">
+              <!-- Dynamic high-star repository cards will be injected here -->
+            </div>
+          </div>
+
+          <!-- Section B: Complete Project Log Archive with Real-time Filtering -->
+          <div class="repos-section all-repos-section">
+            <div
+              class="repos-header"
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 15px;
+                margin-bottom: 15px;
+                flex-wrap: wrap;
+              "
+            >
+              <h3 class="section-title">
+                All Repositories
+                <span id="all-count-badge" class="repo-badge">0</span>
+              </h3>
+
+              <!-- Real-time Filter Field (Now dedicated strictly to filtering the full archive list below) -->
+              <input
+                type="text"
+                id="repo-filter-input"
+                placeholder="Search all repositories..."
+                aria-label="Filter repositories"
+                style="
+                  background-color: var(--bg-main);
+                  border: 1px solid var(--border-color);
+                  border-radius: 6px;
+                  padding: 6px 12px;
+                  color: var(--text-main);
+                  font-size: 0.85rem;
+                  outline: none;
+                  width: 100%;
+                  max-width: 250px;
+                "
+              />
+            </div>
+
+            <div id="all-repos-container" class="repos-grid">
+              <!-- Every fetched repository card will be dynamically appended here -->
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Link to external JavaScript logic -->
+    <script src="script.js"></script>
+  </body>
+</html>
