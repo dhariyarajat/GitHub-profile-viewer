@@ -231,6 +231,12 @@ document.addEventListener("DOMContentLoaded", () => {
       activeSearchUser = userData.login;
       saveSearchHistory(userData.login);
 
+      // Update Compare Developers button to pass the searched username
+      const compareBtn = document.getElementById("btn-compare-nav");
+      if (compareBtn) {
+        compareBtn.href = `compare.html?user1=${encodeURIComponent(userData.login)}`;
+      }
+
       // Debugging logs to inspect the raw data returned by GitHub
       console.log("[Debug] Received User Profile Data:", userData);
       console.log("[Debug] Received Repositories Data Array:", reposData);

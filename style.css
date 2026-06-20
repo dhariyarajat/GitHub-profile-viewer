@@ -247,6 +247,35 @@ body {
 }
 
 /* ==========================================================================
+   COMPARE NAVIGATION SECTION
+   ========================================================================== */
+.compare-nav-section {
+  margin-top: 15px;
+}
+
+.btn-compare {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.btn-compare:hover {
+  border-color: #58a6ff;
+  color: #58a6ff;
+  background-color: rgba(88, 166, 255, 0.08);
+}
+
+/* ==========================================================================
    4. LOADING & ERROR UIs
    ========================================================================== */
 .status-container {

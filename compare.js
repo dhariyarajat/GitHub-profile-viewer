@@ -41,10 +41,15 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const urlParams = getUrlParams();
-  if (urlParams.user1 && urlParams.user2) {
+  if (urlParams.user1) {
     if (user1Input) user1Input.value = urlParams.user1;
-    if (user2Input) user2Input.value = urlParams.user2;
-    compareUsers(urlParams.user1, urlParams.user2);
+    if (urlParams.user2) {
+      if (user2Input) user2Input.value = urlParams.user2;
+      compareUsers(urlParams.user1, urlParams.user2);
+    } else {
+      // Auto-focus User 2 input when only User 1 is pre-filled
+      if (user2Input) user2Input.focus();
+    }
   }
 
   // --- Event Listeners ---

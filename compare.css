@@ -575,6 +575,11 @@
   font-style: italic;
 }
 
+/* Language Color Dot for repos without a specified language */
+.lang-color.markdown {
+  background-color: #6a737d;
+}
+
 /* ==========================================================================
    RESPONSIVE
    ========================================================================== */
