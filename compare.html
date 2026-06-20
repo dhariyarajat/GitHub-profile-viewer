@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Developer Comparison - GitHub Profile Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="compare.css" />
+  </head>
+  <body>
+    <!-- Header Section -->
+    <header class="app-header">
+      <div class="header-container">
+        <h1 class="app-title">👥 Developer Comparison</h1>
+        <button
+          type="button"
+          id="theme-toggle-btn"
+          class="tag"
+          style="
+            cursor: pointer;
+            font-size: 0.85rem;
+            padding: 6px 12px;
+            font-weight: 500;
+          "
+          aria-label="Toggle Theme UI Visual Modes"
+        >
+          ☀️ Light Mode
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="main-container">
+      <!-- Back to Dashboard -->
+      <div class="back-nav">
+        <a href="index.html" class="btn-back">← Back to Dashboard</a>
+      </div>
+
+      <!-- Comparison Input Section -->
+      <section class="compare-input-section">
+        <div class="compare-inputs">
+          <div class="compare-input-group">
+            <label for="user1-input">User 1</label>
+            <input
+              type="text"
+              id="user1-input"
+              placeholder="Enter GitHub username..."
+              aria-label="First GitHub username"
+            />
+          </div>
+          <div class="vs-divider">VS</div>
+          <div class="compare-input-group">
+            <label for="user2-input">User 2</label>
+            <input
+              type="text"
+              id="user2-input"
+              placeholder="Enter GitHub username..."
+              aria-label="Second GitHub username"
+            />
+          </div>
+        </div>
+        <div class="compare-actions">
+          <button type="button" id="btn-compare" class="btn-search">
+            Compare
+          </button>
+          <p id="compare-error" class="error-text hidden" role="alert"></p>
+        </div>
+      </section>
+
+      <!-- Loading State -->
+      <div id="compare-loading" class="status-container hidden">
+        <div class="spinner"></div>
+        <p>Comparing developers...</p>
+      </div>
+
+      <!-- Comparison Results -->
+      <div id="compare-results" class="compare-results hidden">
+        <!-- Profile Comparison Side-by-Side -->
+        <div class="profiles-comparison">
+          <!-- User 1 Profile -->
+          <div class="card compare-profile-card" id="user1-profile">
+            <div class="compare-profile-header">
+              <img id="user1-avatar" class="compare-avatar" src="" alt="User 1 Avatar" />
+              <div class="compare-profile-info">
+                <h2 class="profile-name" id="user1-name">User 1</h2>
+                <p class="profile-username" id="user1-username">@username</p>
+                <p class="profile-bio" id="user1-bio">No bio available.</p>
+              </div>
+            </div>
+            <div class="compare-profile-stats">
+              <div class="compare-stat-item">
+                <span class="stat-label">Followers</span>
+                <span class="stat-value" id="user1-followers">0</span>
+              </div>
+              <div class="compare-stat-item">
+                <span class="stat-label">Following</span>
+                <span class="stat-value" id="user1-following">0</span>
+              </div>
+              <div class="compare-stat-item">
+                <span class="stat-label">Public Repos</span>
+                <span class="stat-value" id="user1-public-repos">0</span>
+              </div>
+              <div class="compare-stat-item">
+                <span class="stat-label">Public Gists</span>
+                <span class="stat-value" id="user1-public-gists">0</span>
+              </div>
+              <div class="compare-stat-item">
+                <span class="stat-label">Location</span>
+                <span class="stat-value stat-value-sm" id="user1-location">Not Specified</span>
+              </div>
+              <div class="compare-stat-item">
+                <span class="stat-label">Joined</span>
+                <span class="stat-value stat-value-sm" id="user1-created">-</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- User 2 Profile -->
+          <div class="card compare-profile-card" id="user2-profile">
+            <div class="compare-profile-header">
+              <img id="user2-avatar" class="compare-avatar" src="" alt="User 2 Avatar" />
+              <div class="compare-profile-info">
+                <h2 class="profile-name" id="user2-name">User 2</h2>
+                <p class="profile-username" id="user2-username">@username</p>
+                <p class="profile-bio" id="user2-bio">No bio available.</p>
+              </div>
+            </div>
+            <div class="compare-profile-stats">
+              <div class="compare-stat-item">
+                <span class="stat-label">Followers</span>
+                <span class="stat-value" id="user2-followers">0</span>
+              </div>
+              <div class="compare-stat-item">
+                <span class="stat-label">Following</span>
+                <span class="stat-value" id="user2-following">0</span>
+              </div>
+              <div class="compare-stat-item">
+                <span class="stat-label">Public Repos</span>
+                <span class="stat-value" id="user2-public-repos">0</span>
+              </div>
+              <div class="compare-stat-item">
+                <span class="stat-label">Public Gists</span>
+                <span class="stat-value" id="user2-public-gists">0</span>
+              </div>
+              <div class="compare-stat-item">
+                <span class="stat-label">Location</span>
+                <span class="stat-value stat-value-sm" id="user2-location">Not Specified</span>
+              </div>
+              <div class="compare-stat-item">
+                <span class="stat-label">Joined</span>
+                <span class="stat-value stat-value-sm" id="user2-created">-</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Winner Section: Basic Metrics -->
+        <section class="winners-section">
+          <h3 class="section-title">🏆 Metric Winners</h3>
+          <div class="winners-grid" id="winners-grid">
+            <!-- Dynamically populated -->
+          </div>
+        </section>
+
+        <!-- Analytics Section: Visual Statistics Cards -->
+        <section class="analytics-section">
+          <h3 class="section-title">📊 Repository Analytics</h3>
+          <div class="analytics-grid" id="analytics-grid">
+            <!-- User 1 Analytics -->
+            <div class="card analytics-card" id="user1-analytics">
+              <h4 class="analytics-user-label" id="user1-analytics-name">User 1</h4>
+              <div class="analytics-stats">
+                <div class="analytics-stat-card">
+                  <span class="analytics-icon">⭐</span>
+                  <span class="analytics-label">Total Stars</span>
+                  <span class="analytics-value" id="user1-total-stars">0</span>
+                </div>
+                <div class="analytics-stat-card">
+                  <span class="analytics-icon">📦</span>
+                  <span class="analytics-label">Total Repositories</span>
+                  <span class="analytics-value" id="user1-total-repos">0</span>
+                </div>
+                <div class="analytics-stat-card">
+                  <span class="analytics-icon">🔥</span>
+                  <span class="analytics-label">Most Starred Repo</span>
+                  <span class="analytics-value analytics-value-sm" id="user1-top-repo">-</span>
+                </div>
+                <div class="analytics-stat-card">
+                  <span class="analytics-icon">📈</span>
+                  <span class="analytics-label">Avg Stars/Repo</span>
+                  <span class="analytics-value" id="user1-avg-stars">0</span>
+                </div>
+              </div>
+            </div>
+            <!-- User 2 Analytics -->
+            <div class="card analytics-card" id="user2-analytics">
+              <h4 class="analytics-user-label" id="user2-analytics-name">User 2</h4>
+              <div class="analytics-stats">
+                <div class="analytics-stat-card">
+                  <span class="analytics-icon">⭐</span>
+                  <span class="analytics-label">Total Stars</span>
+                  <span class="analytics-value" id="user2-total-stars">0</span>
+                </div>
+                <div class="analytics-stat-card">
+                  <span class="analytics-icon">📦</span>
+                  <span class="analytics-label">Total Repositories</span>
+                  <span class="analytics-value" id="user2-total-repos">0</span>
+                </div>
+                <div class="analytics-stat-card">
+                  <span class="analytics-icon">🔥</span>
+                  <span class="analytics-label">Most Starred Repo</span>
+                  <span class="analytics-value analytics-value-sm" id="user2-top-repo">-</span>
+                </div>
+                <div class="analytics-stat-card">
+                  <span class="analytics-icon">📈</span>
+                  <span class="analytics-label">Avg Stars/Repo</span>
+                  <span class="analytics-value" id="user2-avg-stars">0</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Repository Popularity Comparison -->
+        <section class="repo-popularity-section">
+          <h3 class="section-title">⭐ Repository Popularity Comparison</h3>
+          <div class="repo-popularity-grid">
+            <div class="card popularity-card" id="user1-popularity">
+              <h4 id="user1-pop-name">User 1</h4>
+              <div class="popularity-stat">
+                <span class="popularity-label">Total Stars</span>
+                <span class="popularity-value" id="user1-pop-stars">0</span>
+              </div>
+            </div>
+            <div class="popularity-vs">VS</div>
+            <div class="card popularity-card" id="user2-popularity">
+              <h4 id="user2-pop-name">User 2</h4>
+              <div class="popularity-stat">
+                <span class="popularity-label">Total Stars</span>
+                <span class="popularity-value" id="user2-pop-stars">0</span>
+              </div>
+            </div>
+          </div>
+          <div class="popularity-winner" id="popularity-winner">
+            <!-- Dynamically populated -->
+          </div>
+        </section>
+
+        <!-- Most Popular Repository Comparison -->
+        <section class="top-repo-section">
+          <h3 class="section-title">🔥 Most Popular Repository</h3>
+          <div class="top-repo-grid">
+            <div class="card top-repo-card" id="user1-top-repo-card">
+              <h4 id="user1-top-repo-name">User 1's Top Repo</h4>
+              <div class="top-repo-details" id="user1-top-repo-details">
+                <p class="repo-desc">No repositories found.</p>
+              </div>
+            </div>
+            <div class="popularity-vs">VS</div>
+            <div class="card top-repo-card" id="user2-top-repo-card">
+              <h4 id="user2-top-repo-name">User 2's Top Repo</h4>
+              <div class="top-repo-details" id="user2-top-repo-details">
+                <p class="repo-desc">No repositories found.</p>
+              </div>
+            </div>
+          </div>
+          <div class="popularity-winner" id="top-repo-winner">
+            <!-- Dynamically populated -->
+          </div>
+        </section>
+
+        <!-- Top 5 Repositories Per User -->
+        <section class="top5-section">
+          <h3 class="section-title">🏅 Top 5 Repositories</h3>
+          <div class="top5-grid">
+            <div class="top5-column">
+              <h4 class="top5-user-label" id="user1-top5-label">User 1's Top Repos</h4>
+              <div id="user1-top5-list" class="top5-list"></div>
+            </div>
+            <div class="top5-column">
+              <h4 class="top5-user-label" id="user2-top5-label">User 2's Top Repos</h4>
+              <div id="user2-top5-list" class="top5-list"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Overall Winner -->
+        <section class="overall-winner-section">
+          <div class="card overall-winner-card" id="overall-winner-card">
+            <h3 class="overall-winner-label">🏆 Overall Developer Winner</h3>
+            <div id="overall-winner-content">
+              <p class="repo-desc">Calculating scores...</p>
+            </div>
+            <div class="score-breakdown">
+              <p class="score-formula">
+                Score = Followers × 1 + Repositories × 5 + Public Gists × 2 + Total Stars × 10
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Error State -->
+      <div id="compare-api-error" class="status-container error-box hidden" role="alert">
+        <p>One or both users not found. Please check the usernames and try again.</p>
+      </div>
+    </main>
+
+    <script src="compare.js"></script>
+  </body>
+</html>
