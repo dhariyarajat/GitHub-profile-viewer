@@ -1,38 +1,16 @@
-# GitHub Profile Dashboard
+# 🚀 GitHub Profile Dashboard
 
-A responsive GitHub Profile Dashboard built using HTML, CSS, and JavaScript. This project fetches real-time GitHub user data using the GitHub REST API and displays profile information, statistics, and repositories in a clean GitHub-inspired UI.
+A modern GitHub Profile Dashboard built using HTML, CSS, Tailwind CSS, and JavaScript. The application fetches real-time GitHub user data and repository information using the GitHub REST API.
 
-## 🚀 Features
+## 🌐 Live Demo
 
-* Search any GitHub user
-* Fetch live data from GitHub REST API
-* Display profile details
+Add your Vercel deployment link here.
 
-  * Avatar
-  * Name
-  * Username
-  * Bio
-  * Location
-* Display GitHub statistics
+```bash
+https://your-project.vercel.app
+```
 
-  * Public Repositories
-  * Followers
-  * Following
-* View user repositories
-* Real-time repository search/filter
-* Recent searches stored using LocalStorage
-* Theme persistence using LocalStorage
-* Responsive design for mobile, tablet, and desktop
-* Loading and error states
-* GitHub-style modern UI
-
-## 🛠️ Technologies Used
-
-* HTML5
-* CSS3
-* JavaScript (ES6+)
-* GitHub REST API
-* LocalStorage
+---
 
 ## 📸 Screenshots
 
@@ -49,55 +27,216 @@ A responsive GitHub Profile Dashboard built using HTML, CSS, and JavaScript. Thi
 
 ![Repository Search](assets/repo-search.png)
 
-## 📚 Concepts Implemented
+### Developer Comparison
 
-This project helped me practice:
+![Developer Comparison](assets/compare.png)
 
+---
+
+## ✨ Features
+
+### 👤 GitHub Profile Search
+
+* Search any GitHub username
+* Real-time GitHub API integration
+* Display profile details instantly
+
+### 📊 Profile Analytics
+
+* Avatar
+* Name
+* Username
+* Bio
+* Followers
+* Following
+* Public Repositories
+* Location
+* Company
+* Join Date
+
+### 📦 Repository Dashboard
+
+* Repository listing
+* Repository descriptions
+* Programming language display
+* Stars count
+* Last updated information
+
+### 🔍 Repository Filtering
+
+* Search repositories instantly
+* Dynamic filtering
+
+### ⭐ Repository Sorting
+
+* Sort repositories by popularity
+* Sort based on GitHub stars
+
+### ⚡ Loading States
+
+* Professional loading indicators
+* Better user experience during API requests
+
+### ❌ Error Handling
+
+* Empty input validation
+* User not found handling
+* API failure handling
+* Network error handling
+
+### 🕒 Recent Searches
+
+* Stores previously searched usernames
+* Quick access to recent profiles
+
+### ⚔️ Developer Comparison
+
+Compare two GitHub developers side-by-side.
+
+Features:
+
+* User comparison
+* Followers comparison
+* Following comparison
+* Public repositories comparison
+* Public gists comparison
+* Total stars comparison
+* Top 5 repositories comparison
+* Most popular repository comparison
+
+### 🏆 Developer Ranking System
+
+Automatic winner calculation based on:
+
+* Followers
+* Public Repositories
+* Public Gists
+* Total Repository Stars
+
+### 🔗 URL Parameter Support
+
+Examples:
+
+```bash
+compare.html?user1=dhariyarajat&user2=torvalds
+```
+
+Directly opens the comparison page with users preloaded.
+
+### 📱 Responsive Design
+
+* Mobile friendly
+* Tablet friendly
+* Desktop optimized
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+* HTML5
+* CSS3
+* Tailwind CSS
+* JavaScript (ES6+)
+
+### APIs
+
+* GitHub REST API
+
+### Concepts Used
+
+* Async/Await
+* Fetch API
 * DOM Manipulation
 * Event Handling
-* Form Validation
-* Fetch API
-* Async / Await
-* Promise.all()
-* Array Destructuring
-* LocalStorage
-* Error Handling (try/catch)
-* Responsive Web Design
+* Local Storage
+* URLSearchParams
+* Array Methods
+* Error Handling
+* Responsive Design
 
-## 🔍 How It Works
+---
 
-1. User enters a GitHub username.
-2. The application sends requests to the GitHub API.
-3. Profile and repository data are fetched in parallel using Promise.all().
-4. The UI is updated dynamically using JavaScript.
-5. Recent searches are stored locally using LocalStorage.
-6. Users can search and filter repositories in real time.
+## 📂 Project Structure
 
-## ⚡ API Endpoints Used
+```bash
+project/
+│
+├── index.html
+├── profile.html
+├── compare.html
+│
+├── css/
+│   └── style.css
+│
+├── js/
+│   ├── main.js
+│   ├── profile.js
+│   ├── compare.js
+│
+└── assets/
+```
 
-User Profile:
+---
 
-https://github.com/dhariyarajat
+## 🚀 Installation
 
-User Repositories:
+Clone the repository:
 
-https://github.com/dhariyarajat?tab=repositories
+```bash
+git clone https://github.com/your-username/github-profile-dashboard.git
+```
 
-## 🎯 Future Improvements
+Open the project:
 
-* Repository Sorting
-* Pagination
-* Language Statistics
-* Repository Charts
-* Favorite Profiles
-* Export Profile Data
+```bash
+cd github-profile-dashboard
+```
 
-## 🌐 Live Demo
+Run with VS Code Live Server or deploy using Vercel.
 
-https://github-dashboard-viewer.netlify.app/
+---
 
-## 👨‍💻 Author
+## 🎯 What I Learned
 
-Rajat
+This project helped me learn:
 
-Built as a frontend project to practice API integration, JavaScript fundamentals, and modern web development concepts.
+* Real-world API integration
+* Asynchronous JavaScript
+* DOM manipulation
+* Dynamic UI rendering
+* Error handling
+* State management
+* GitHub API usage
+* Frontend project architecture
+
+---
+
+## 🔮 Future Improvements
+
+* GitHub Contribution Graph
+* Advanced Analytics
+* User Favorites
+* Export Reports
+* Theme Customization
+* Repository Insights Dashboard
+
+---
+
+## 👨‍💻 Developer
+
+**Rajat Dhariya**
+
+BCA Student | Frontend Developer | Aspiring Full Stack Developer
+
+Interested in:
+
+* Web Development
+* AI-Powered Applications
+* JavaScript Development
+* Full Stack Engineering
+
+---
+
+⭐ If you like this project, consider giving it a star.
