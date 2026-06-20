@@ -4,10 +4,9 @@ A modern GitHub Profile Dashboard built using HTML, CSS, Tailwind CSS, and JavaS
 
 ## 🌐 Live Demo
 
-Add your Vercel deployment link here.
 
 ```bash
-https://your-project.vercel.app
+https://github-profile-dashboard-viewer.netlify.app
 ```
 
 ---
@@ -164,15 +163,13 @@ Directly opens the comparison page with users preloaded.
 project/
 │
 ├── index.html
-├── profile.html
 ├── compare.html
 │
 ├── css/
 │   └── style.css
 │
 ├── js/
-│   ├── main.js
-│   ├── profile.js
+│   ├── script.js
 │   ├── compare.js
 │
 └── assets/
@@ -185,13 +182,13 @@ project/
 Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/github-profile-dashboard.git
+git clone https://github.com/dhariyarajat/GitHub-profile-dashboard.git
 ```
 
 Open the project:
 
 ```bash
-cd github-profile-dashboard
+cd GitHub-profile-dashboard
 ```
 
 Run with VS Code Live Server or deploy using Vercel.
