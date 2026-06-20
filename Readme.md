@@ -188,7 +188,7 @@ Open the project:
 cd GitHub-profile-dashboard
 ```
 
-Run with VS Code Live Server or deploy using Vercel.
+Run with VS Code Live Server or deploy using Netlify.
 
 ---
 
