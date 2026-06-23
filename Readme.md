@@ -6,7 +6,7 @@ A modern GitHub Profile Dashboard built using HTML, CSS, Tailwind CSS, and JavaS
 
 
 
-[Live Demo](https://github-profile-dashboard-viewer.netlify.app)
+Live Demo :[https://github-profile-dashboard-viewer.netlify.app](https://github-profile-dashboard-viewer.netlify.app)
 
 ## 📸 Screenshots
 
@@ -162,12 +162,11 @@ project/
 ├── index.html
 ├── compare.html
 │
-├── css/
-│   └── style.css
+├── style.css
+├── compare.html
 │
-├── js/
-│   ├── script.js
-│   ├── compare.js
+├── script.js
+├── compare.js
 │
 └── assets/
 ```
